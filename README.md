@@ -1,16 +1,13 @@
-# [Massive Decks ![Massive Decks](https://raw.githubusercontent.com/Lattyware/massivedecks/master/client/assets/images/icon.png)][hosted]
+# [Humerus Decks]
 
-[![Build Status](https://img.shields.io/github/workflow/status/Lattyware/massivedecks/Build%20and%20publish%20docker%20images.)](https://github.com/Lattyware/massivedecks/actions)
-[![License](https://img.shields.io/github/license/Lattyware/massivedecks)](LICENSE)
-[![Follow on Twitter for Status & Updates](https://img.shields.io/twitter/follow/Massive_Decks?label=Status%20%26%20Updates&style=social)][twitter]
-
-Massive Decks is a free, open source comedy party game based on [Cards against Humanity][cah]. Play with friends!
+Humerus Decks is a fork of [Massive Decks](https://github.com/lattyware/massivedecks), a free, open source comedy party game based on [Cards against Humanity][cah], with an AI twist! Play with friends!
+Play against the [Humerus bot](https://github.com/UTMIST/Humerus)! Are you funnier than a computer?
 
 **[Play Massive Decks][hosted]**
 
-[hosted]: https://md.rereadgames.com/
 [cah]: https://cardsagainsthumanity.com/
-[twitter]: https://twitter.com/Massive_Decks
+
+
 
 ## Features
 
@@ -50,36 +47,16 @@ It is suggested you read the [deployment guide on the wiki][deployment-guide].
 
 The Docker images can be found on Docker Hub: [Server](https://hub.docker.com/r/massivedecks/server) / [Client](https://hub.docker.com/r/massivedecks/client).
 
-There are example docker deployments in [the deployment folder](deployment).
-
-### Heroku
-
-You can deploy to Heroku with the button below:
-
-[![Deploy to Heroku](https://www.herokucdn.com/deploy/button.svg)](https://heroku.com/deploy?template=https://github.com/Lattyware/massivedecks)
-
-If you want to customise the deployment further, you can deploy through heroku from your own fork of the project with
-modification (note the button above is hard-coded to this repository).
-
 ## Contributing
 
-If you have any problems with the game, please [raise an issue][issue]. If you would like to help develop the game,
-check [the wiki's contribution guide][contributing] for how to get started.
-
-The game has a system for translation, and if you would like to provide translation to a new language, please see
-[the guide on the wiki][translation].
-
-[issue]: https://github.com/Lattyware/massivedecks/issues/new
-[contributing]: https://github.com/Lattyware/massivedecks/wiki/Contributing
-[translation]: https://github.com/Lattyware/massivedecks/wiki/Translation
+If you have any problems with the game, please [raise an issue][issue]. 
+Contribution guide coming soon!
 
 ## Credits
 
 ### Maintainers
 
-Massive Decks is maintained by [Reread Games][reread].
-
-[reread]: https://www.rereadgames.com/
+[Brian Chen](https://chenbrian.ca)
 
 ### Inspiration
 
