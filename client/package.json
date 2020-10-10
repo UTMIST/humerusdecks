@@ -8,7 +8,6 @@
   "repository": "github:Lattyware/massivedecks",
   "scripts": {
     "prepublishOnly": "npm run build",
-    "prebuild": "sed -i \"s/\\\"dev\\\"/\\\"${MD_VERSION:-${SOURCE_VERSION:-unknown}-dev}\\\"/g\" src/elm/MassiveDecks/Version.elm",
     "build": "npx webpack --mode=production",
     "dev": "npx webpack-dev-server --mode=development"
   },
