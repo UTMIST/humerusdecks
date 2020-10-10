@@ -17,6 +17,7 @@ services:
             # This needs to be changed to a secret value.
             # You can run `npm run generate-secret` in the server project to generate an appropriate value.
             - MD_SECRET=CHANGE ME
+
         networks:
             - internal
         restart: unless-stopped
