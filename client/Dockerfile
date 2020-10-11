@@ -25,10 +25,9 @@ EXPOSE 8080
 
 LABEL maintainer="team@rereadgames.com"
 LABEL org.label-schema.name="massivedecks/client"
-LABEL org.label-schema.description="The web client for Massive Decks, a comedy party game."
-LABEL org.label-schema.url="https://github.com/Lattyware/massivedecks"
-LABEL org.label-schema.vcs-url="https://github.com/Lattyware/massivedecks"
-LABEL org.label-schema.vendor="Reread Games"
+LABEL org.label-schema.description="The web client for humerus bot"
+LABEL org.label-schema.url="https://github.com/UTMIST/massivedecks"
+LABEL org.label-schema.vcs-url="https://github.com/UTMIST/massivedecks"
 LABEL org.label-schema.schema-version="1.0"
 LABEL org.label-schema.build-date=$BUILD_DATE
 LABEL org.label-schema.vcs-ref=$VCS_REF
