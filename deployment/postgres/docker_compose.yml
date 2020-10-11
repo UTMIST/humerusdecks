@@ -21,7 +21,7 @@ services:
         environment:
             - POSTGRES_USER=massivedecks
             # This should be changed to a secret value, matched to the config.
-            - POSTGRES_PASSWORD=CHANGE ME
+            - POSTGRES_PASSWORD=apassword
         networks:
             - internal
         volumes:

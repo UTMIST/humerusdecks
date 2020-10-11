@@ -17,12 +17,11 @@ ARG VERSION=dev
 
 ENV MD_VERSION $VERSION
 
-LABEL maintainer="team@rereadgames.com"
+LABEL maintainer="brianchen.chen@mail.utoronto.ca"
 LABEL org.label-schema.name="massivedecks/server"
-LABEL org.label-schema.description="The web server for Massive Decks, a comedy party game."
-LABEL org.label-schema.url="https://github.com/Lattyware/massivedecks"
-LABEL org.label-schema.vcs-url="https://github.com/Lattyware/massivedecks"
-LABEL org.label-schema.vendor="Reread Games"
+LABEL org.label-schema.description="Web server for humerus bot."
+LABEL org.label-schema.url="https://github.com/UTMIST/Humerus"
+LABEL org.label-schema.vcs-url="https://github.com/UTMIST/Humerus"
 LABEL org.label-schema.schema-version="1.0"
 LABEL org.label-schema.build-date=$BUILD_DATE
 LABEL org.label-schema.vcs-ref=$VCS_REF

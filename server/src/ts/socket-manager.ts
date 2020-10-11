@@ -131,6 +131,7 @@ export class SocketManager {
           throw new InvalidActionError("Invalid message.");
         }
         const validated = Action.validate(parseJson(data));
+
         if (auth === null) {
           if (validated.action === "Authenticate") {
             auth = await Authenticate.handle(server, validated, gameCode);
@@ -165,7 +166,7 @@ export class SocketManager {
                   likeDetail = { played, liked };
                 }
               }
-
+              Logging.logger.info("test logger");
               const user = lobby.users[uid];
               user.connection = "Connected";
               return {
@@ -178,6 +179,7 @@ export class SocketManager {
                 ],
               };
             });
+
             Logging.logger.info("WebSocket connect:", {
               user: auth.uid,
               authenticate: validated,
