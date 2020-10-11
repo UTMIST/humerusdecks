@@ -155,8 +155,9 @@
       port: 5432,
       user: "massivedecks",
       database: "massivedecks",
-      password: "CHANGE ME",
+      password: "apassword",
       keepAlive: false,
+
     },
 
     // How old a cached value should be before we check to see if we should update it on a hit.
