@@ -136,7 +136,7 @@
       port: 5432,
       user: "massivedecks",
       database: "massivedecks",
-      password: "CHANGE ME",
+      password: "massivedecks",
       keepAlive: false,
     },
 
@@ -155,7 +155,7 @@
       port: 5432,
       user: "massivedecks",
       database: "massivedecks",
-      password: "apassword",
+      password: "massivedecks",
       keepAlive: false,
 
     },

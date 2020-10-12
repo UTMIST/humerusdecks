@@ -21,7 +21,7 @@ services:
         environment:
             - POSTGRES_USER=massivedecks
             # This should be changed to a secret value, matched to the config.
-            - POSTGRES_PASSWORD=apassword
+            - POSTGRES_PASSWORD=massivedecks
         networks:
             - internal
         volumes:
@@ -32,7 +32,7 @@ services:
         container_name: server
         # If you want to keep your deployment stable, it would be sensible to specify a specific tag rather than just `latest` here.
         # Make sure you always deploy the same tag for client and server.
-        image: "massivedecks/server:latest"
+        image: "ihasdapie/humerusdecks_server:latest"
         depends_on:
             - storage
         environment:
@@ -52,7 +52,7 @@ services:
         container_name: client
         # If you want to keep your deployment stable, it would be sensible to specify a specific tag rather than just `latest` here.
         # Make sure you always deploy the same tag for client and server.
-        image: "massivedecks/client:latest"
+        image: "ihasdapie/humerusdecks_client:latest"
         depends_on:
             - server
         ports:
