@@ -23,8 +23,7 @@ ARG VERSION=dev
 
 EXPOSE 8080
 
-LABEL maintainer="team@rereadgames.com"
-LABEL org.label-schema.name="massivedecks/client"
+LABEL maintainer="brianchen.chen@mail.utoronto.ca"
 LABEL org.label-schema.description="The web client for humerus bot"
 LABEL org.label-schema.url="https://github.com/UTMIST/massivedecks"
 LABEL org.label-schema.vcs-url="https://github.com/UTMIST/massivedecks"
