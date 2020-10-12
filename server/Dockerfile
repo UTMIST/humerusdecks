@@ -18,7 +18,6 @@ ARG VERSION=dev
 ENV MD_VERSION $VERSION
 
 LABEL maintainer="brianchen.chen@mail.utoronto.ca"
-LABEL org.label-schema.name="massivedecks/server"
 LABEL org.label-schema.description="Web server for humerus bot."
 LABEL org.label-schema.url="https://github.com/UTMIST/Humerus"
 LABEL org.label-schema.vcs-url="https://github.com/UTMIST/Humerus"

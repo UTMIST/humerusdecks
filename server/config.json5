@@ -129,19 +129,19 @@
 
   // How to store game data.
   storage: {
-    // Example of a configuration using in-memory storage. Note this means server restart wipes all data.
-    type: "InMemory",
+    //// Example of a configuration using in-memory storage. Note this means server restart wipes all data.
+    // type: "InMemory",
 
-    //// Example of a configuration using a postgres database.
-    // type: "PostgreSQL",
-    // connection: {
-    //   host: "postgres",
-    //   port: 5432 ,
-    //   user: "massivedecks",
-    //   database: "massivedecks",
-    //   password: "massivedecks",
-    //   keepAlive: false,
-    // },
+    // Example of a configuration using a postgres database.
+     type: "PostgreSQL",
+     connection: {
+       host: "postgres",
+       port: 5432 ,
+       user: "massivedecks",
+       database: "massivedecks",
+       password: "massivedecks",
+       keepAlive: false,
+     },
 
     // How long to allow without any activity before garbage collecting the game (an ISO 8601 duration).
     abandonedTime: "PT15M",
@@ -151,19 +151,19 @@
 
   // How to cache game data.
   cache: {
-    // Example of a configuration using in-memory storage.
-    type: "InMemory",
+    //// Example of a configuration using in-memory storage.
+    // type: "InMemory",
 
-    //// Example of a configuration using a postgres database.
-    // type: "PostgreSQL",
-    // connection: {
-    //   host: "postgres",
-    //   port: 5432 ,
-    //   user: "massivedecks",
-    //   database: "massivedecks",
-    //   password: "massivedecks",
-    //   keepAlive: false,
-    // },
+    // Example of a configuration using a postgres database.
+    type: "PostgreSQL",
+    connection: {
+       host: "postgres",
+       port: 5432 ,
+       user: "massivedecks",
+       database: "massivedecks",
+       password: "massivedecks",
+       keepAlive: false,
+     },
 
     // How old a cached value should be before we check to see if we should update it on a hit.
     checkAfter: "PT5M",
