@@ -513,11 +513,12 @@ rejoinSection shared _ =
         []
 
     else
-        [ Html.div [ HtmlA.class "rejoin" ]
+        {-[ Html.div [ HtmlA.class "rejoin" ]
             [ Html.h3 [] [ Strings.RejoinTitle |> Lang.html shared ]
             , Html.ul [] (lobbies |> List.filterMap (rejoinLobby shared))
             ]
-        ]
+        ]-}
+        []
 
 
 rejoinLobby : Shared -> Result Error.TokenDecodingError Lobby.Auth -> Maybe (Html Global.Msg)
