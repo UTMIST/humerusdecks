@@ -30,7 +30,7 @@ translate mdString =
     case mdString of
         -- General
         MassiveDecks ->
-            [ Text "Massive Decks" ]
+            [ Text "Humerus Decks" ]
 
         Close ->
             [ Text "Close" ]
