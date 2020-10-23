@@ -222,7 +222,8 @@ async function main(): Promise<void> {
 
   setInterval(async () => {
     try {
-      const lobbies = await state.store.garbageCollect();
+      //const lobbies = await state.store.garbageCollect();
+      const lobbies = 0;
       if (lobbies > 0) {
         Logging.logger.info(`Collected ${lobbies} ended/abandoned lobbies.`);
       }
