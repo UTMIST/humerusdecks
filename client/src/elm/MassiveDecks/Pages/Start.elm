@@ -506,8 +506,8 @@ passwordField shared error password =
 rejoinSection : Shared -> Model -> List (Html Global.Msg)
 rejoinSection shared _ =
     let
-        lobbies =
-            shared.settings.settings.tokens |> Dict.values |> List.map Token.decode
+        lobbies = []
+        {- shared.settings.settings.tokens |> Dict.values |> List.map Token.decode -}
     in
     if List.isEmpty lobbies then
         []
