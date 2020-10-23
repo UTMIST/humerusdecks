@@ -8,6 +8,7 @@ import MassiveDecks.Card.Source.BuiltIn.Model as BuiltIn
 import MassiveDecks.Card.Source.Model as Source
 import MassiveDecks.Strings exposing (MdString(..), Noun(..), Quantity(..), noun, nounMaybe, nounUnknownQuantity)
 import MassiveDecks.Strings.Translation as Translation exposing (Result(..))
+import Random
 
 
 pack : Translation.Pack
