@@ -232,7 +232,7 @@ view shared model =
                 [ Html.blankA
                     [ HtmlA.class "logo"
                     , Strings.MDProject |> Lang.title shared
-                    , HtmlA.href "https://github.com/Lattyware/massivedecks"
+                    , HtmlA.href "https://github.com/UTMIST/humerusdecks"
                     ]
                     [ Icon.viewStyled [ Strings.MDLogoDescription |> Lang.alt shared ] Icon.massiveDecks ]
                 , Html.blankA
