@@ -29,7 +29,7 @@
       // Ids for decks in the order they will be presented to the user.
       // The game will look for these in the directory given by basePath above, and will expect them to have the
       // .deck.json5 extension.
-      decks: ["cah-base-en", "cah-base-ptbr"],
+      decks: ["cah-base-en", "cah-base-ptbr", "humerusdecks"],
     },
 
     // Allows players to load decks from Many Decks.
