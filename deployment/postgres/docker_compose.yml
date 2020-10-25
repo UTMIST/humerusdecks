@@ -15,13 +15,17 @@ volumes:
 services:
     storage:
         container_name: storage
-        image: "postgres:12"
+        image: "postgres:latest"
         # See the postgres image's documentation for more on configuring it.
         # https://hub.docker.com/_/postgres
+        ports:
+            - "5432:5432"
         environment:
             - POSTGRES_USER=massivedecks
             # This should be changed to a secret value, matched to the config.
             - POSTGRES_PASSWORD=massivedecks
+            - POSTGRES_DB=massivedecks
+            
         networks:
             - internal
         volumes:
