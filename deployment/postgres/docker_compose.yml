@@ -25,11 +25,11 @@ services:
             # This should be changed to a secret value, matched to the config.
             - POSTGRES_PASSWORD=massivedecks
             - POSTGRES_DB=massivedecks
-            
+            - POSTGRES_HOST_AUTH_METHOD=trust
         networks:
             - internal
         volumes:
-            - storage-volume:/var/lib/postgresql/data
+            - ./.storage-volume:/var/lib/postgresql/data
         restart: unless-stopped
     
     server:
@@ -43,7 +43,9 @@ services:
             - NODE_ENV=production
             # This needs to be changed to a secret value.
             # You can run `npm run generate-secret` in the server project to generate an appropriate value.
-            - MD_SECRET=CHANGE ME
+            - MD_SECRET=CHANGEME
+            - POSTGRES_PASSWORD=massivedecks
+            - POSTGRES_DB=massivedecks
         networks:
             - internal
         volumes:
