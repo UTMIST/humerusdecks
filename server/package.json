@@ -1,11 +1,11 @@
 {
-  "name": "@massivedecks/server",
+  "name": "@humerusdecks/server",
   "description": "The game server for Massive Decks, a comedy party game.",
   "version": "2.0.0",
-  "author": "Reread Games <team@rereadgames.com>",
+  "author": "Brian Chen <brianchen.chen@mail.utoronto.ca>",
   "license": "AGPL-3.0-or-later",
   "private": true,
-  "repository": "github:Lattyware/massivedecks",
+  "repository": "github:UTMIST/humerusdecks",
   "engines": {
     "node": "13.x.x"
   },
