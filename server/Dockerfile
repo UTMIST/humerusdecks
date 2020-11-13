@@ -2,6 +2,21 @@ FROM node:14-alpine AS build
 
 WORKDIR /md
 
+RUN apk --no-cache --virtual build-dependencies add \
+    python \
+    make \
+    g++ \
+    bash \
+    gcc \
+    && npm install \
+    && apk del build-dependencies
+
+ENV PYTHONUNBUFFERED=1 
+RUN apk add --update --no-cache python3 postgresql-dev g++ make bash 
+RUN ln -sf python3 /usr/bin/python
+RUN pip3 install --no-cache --upgrade pip setuptools
+
+
 COPY ["./package.json", "./package-lock.json", "./"]
 RUN ["npm", "ci"]
 
@@ -10,6 +25,12 @@ COPY ["./tsconfig.json", "./config.json5", "./"]
 RUN ["npm", "run", "build"]
 
 FROM node:14-alpine
+
+ENV PYTHONUNBUFFERED=1 
+RUN apk add --update --no-cache python3 postgresql-dev g++ make bash 
+RUN ln -sf python3 /usr/bin/python
+RUN pip3 install --no-cache --upgrade pip setuptools
+
 
 ARG BUILD_DATE
 ARG VCS_REF
