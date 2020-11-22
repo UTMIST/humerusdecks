@@ -2,6 +2,8 @@ FROM node:14-alpine AS build
 
 WORKDIR /md
 
+<<<<<<< HEAD
+=======
 RUN apk --no-cache --virtual build-dependencies add \
     python \
     make \
@@ -17,6 +19,7 @@ RUN ln -sf python3 /usr/bin/python
 RUN pip3 install --no-cache --upgrade pip setuptools
 
 
+>>>>>>> b25dad87a5ee0dc806c312079ee68a012e5d7866
 COPY ["./package.json", "./package-lock.json", "./"]
 RUN ["npm", "ci"]
 
@@ -26,12 +29,15 @@ RUN ["npm", "run", "build"]
 
 FROM node:14-alpine
 
+<<<<<<< HEAD
+=======
 ENV PYTHONUNBUFFERED=1 
 RUN apk add --update --no-cache python3 postgresql-dev g++ make bash 
 RUN ln -sf python3 /usr/bin/python
 RUN pip3 install --no-cache --upgrade pip setuptools
 
 
+>>>>>>> b25dad87a5ee0dc806c312079ee68a012e5d7866
 ARG BUILD_DATE
 ARG VCS_REF
 ARG VERSION=dev

@@ -2,5 +2,8 @@
 dist/
 node_modules/
 .eslintrc.json/
+<<<<<<< HEAD
+=======
 how2run.txt
 
+>>>>>>> b25dad87a5ee0dc806c312079ee68a012e5d7866

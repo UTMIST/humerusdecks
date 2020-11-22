@@ -1,4 +1,13 @@
 {
+<<<<<<< HEAD
+  "name": "@massivedecks/client",
+  "description": "The game client for Massive Decks, a comedy party game.",
+  "version": "2.0.0",
+  "author": "Reread Games <team@rereadgames.com>",
+  "license": "AGPL-3.0-or-later",
+  "private": true,
+  "repository": "github:Lattyware/massivedecks",
+=======
   "name": "@humerusdecks/client",
   "description": "The game client for Massive Decks, a comedy party game.",
   "version": "2.0.0",
@@ -6,6 +15,7 @@
   "license": "AGPL-3.0-or-later",
   "private": true,
   "repository": "github:UTMIST/humerusdecks",
+>>>>>>> b25dad87a5ee0dc806c312079ee68a012e5d7866
   "scripts": {
     "prepublishOnly": "npm run build",
     "build": "npx webpack --mode=production",

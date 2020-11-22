@@ -1,4 +1,13 @@
 {
+<<<<<<< HEAD
+  "name": "@massivedecks/server",
+  "description": "The game server for Massive Decks, a comedy party game.",
+  "version": "2.0.0",
+  "author": "Reread Games <team@rereadgames.com>",
+  "license": "AGPL-3.0-or-later",
+  "private": true,
+  "repository": "github:Lattyware/massivedecks",
+=======
   "name": "@humerusdecks/server",
   "description": "The game server for Massive Decks, a comedy party game.",
   "version": "2.0.0",
@@ -6,6 +15,7 @@
   "license": "AGPL-3.0-or-later",
   "private": true,
   "repository": "github:UTMIST/humerusdecks",
+>>>>>>> b25dad87a5ee0dc806c312079ee68a012e5d7866
   "engines": {
     "node": "13.x.x"
   },
@@ -49,8 +59,12 @@
     "source-map-support": "^0.5.19",
     "uuid": "^8.3.0",
     "winston": "^3.3.3",
+<<<<<<< HEAD
+    "wu": "^2.1.0"
+=======
     "wu": "^2.1.0",
     "pg-native": "^3.0.0"
+>>>>>>> b25dad87a5ee0dc806c312079ee68a012e5d7866
   },
   "devDependencies": {
     "@types/express": "^4.17.8",
