@@ -235,18 +235,20 @@ view shared model =
                     , HtmlA.href "https://github.com/UTMIST/humerusdecks"
                     ]
                     [ Icon.viewStyled [ Strings.MDLogoDescription |> Lang.alt shared ] Icon.massiveDecks ]
-                , Html.blankA
+                {-, Html.blankA
                     [ HtmlA.class "logo"
                     , Strings.DevelopedByReread |> Lang.title shared
                     , HtmlA.href "https://www.rereadgames.com/"
                     ]
                     [ Icon.viewStyled [ Strings.RereadLogoDescription |> Lang.alt shared ] Icon.rereadGames ]
+                -}
                 ]
             , Html.p [ HtmlA.class "version" ]
                 [ Html.text "\""
                 , Strings.MassiveDecks |> Lang.html shared
                 , Html.text "\" "
-                , Strings.Version { versionNumber = Version.version } |> Lang.html shared
+                {-
+                , Strings.Version { versionNumber = Version.version } |> Lang.html shared-}
                 ]
             ]
         ]

@@ -79,7 +79,8 @@ translate mdString =
             [ Ref MassiveDecks
             , Text " is a comedy party game based on "
             , Ref CardsAgainstHumanity
-            , Text ", developed by "
+            , Text ", developed by a group of students at the University of Toronto Machine Intelligence Student Team, or UTMIST."
+            , Text " The project was forked from Massivedecks, developed by "
             , Ref RereadGames
             , Text " and other contributors—the game is open source under "
             , Ref License

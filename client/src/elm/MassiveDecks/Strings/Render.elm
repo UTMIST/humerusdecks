@@ -214,15 +214,15 @@ enhanceHtml context mdString unenhanced =
 
         RereadGames ->
             [ Html.blankA [ HtmlA.class "no-wrap", HtmlA.href "https://www.rereadgames.com/" ] unenhanced ]
-
+            
         MDProject ->
-            [ Html.blankA [ HtmlA.class "no-wrap", HtmlA.href "https://github.com/Lattyware/massivedecks" ] unenhanced ]
+            [ Html.blankA [ HtmlA.class "no-wrap", HtmlA.href "https://github.com/UTMIST/humerusdecks" ] unenhanced ]
 
         License ->
-            [ Html.blankA [ HtmlA.href "https://github.com/Lattyware/massivedecks/blob/master/LICENSE" ] unenhanced ]
+            [ Html.blankA [ HtmlA.href "https://github.com/UTMIST/humerusdecks/blob/master/LICENSE" ] unenhanced ]
 
         TranslationBeg ->
-            [ Html.blankA [ HtmlA.href "https://github.com/Lattyware/massivedecks/wiki/Translation" ] unenhanced ]
+            [ Html.blankA [ HtmlA.href "https://github.com/UTMIST/humerusdecks/wiki/Translation" ] unenhanced ]
 
         TwitterHandle ->
             [ Html.blankA [ HtmlA.href "https://twitter.com/Massive_Decks" ] (suffixed unenhanced Icon.twitter) ]
