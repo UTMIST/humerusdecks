@@ -33,4 +33,10 @@ LABEL org.label-schema.vcs-ref=$VCS_REF
 LABEL org.label-schema.version=$VERSION
 
 COPY --from=build ["/md/dist", "/usr/share/nginx/html/"]
+<<<<<<< HEAD
+=======
+
+
+
+>>>>>>> b25dad87a5ee0dc806c312079ee68a012e5d7866
 COPY ["./nginx.conf", "/etc/nginx/nginx.conf"]

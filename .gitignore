@@ -7,3 +7,13 @@ dist/
 # Package management cruft.
 elm-stuff/
 node_modules/
+<<<<<<< HEAD
+=======
+
+.env
+**config.json5
+server/config.json5
+deployment/postgres/config.json5
+
+
+>>>>>>> b25dad87a5ee0dc806c312079ee68a012e5d7866
