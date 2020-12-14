@@ -9,9 +9,7 @@
 
 4. create massivedecks user/db
 
-<<<<<<< HEAD
-=======
-# other notes:
+ other notes:
 To run and let listen on localhost:
 docker run -p 127.0.0.1:8081:8081 ihasdapie/humerusdecks_server:latest
 
@@ -20,5 +18,4 @@ format: -p <host_ip>:<host_port>:<container_port>
 
 
 
->>>>>>> b25dad87a5ee0dc806c312079ee68a012e5d7866
 
