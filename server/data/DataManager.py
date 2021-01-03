@@ -34,8 +34,11 @@ class DataManager:
         
         for data in rows:
             rawGameData = data[1]
-            allGameData.append(rawGameData.copy())
-            print("Saved game " + str(data[0]) + " to dictionary and appended dictionary to list.") 
+
+            # Skip all data where a game was not played
+            if "game" in rawGameData:
+                allGameData.append(rawGameData.copy())
+                print("Saved game " + str(data[0]) + " to dictionary and appended dictionary to list.") 
 
         print("All game data selected from database and stored in list of dictionaries.")
         conn.close()
@@ -44,7 +47,17 @@ class DataManager:
 
     # Accepts list of dictionaries as input and returns list of tuples (play, result) as output
     def cleanGameData(self, data):
-        print(data[1])
+        #print(data[17].keys())
+        #f = open("json.txt", 'w')
+        #f.write(json.dumps(data[17]))
+
+        for idx, item in enumerate(data):
+            
+            if "game" in item:
+                #print(item["game"]["history"])
+                print(idx)
+                print(item.keys())
+
         results = []
         return results
 
