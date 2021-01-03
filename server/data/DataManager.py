@@ -1,9 +1,10 @@
 import psycopg2
 import json
 
+# A class to fetch and clean all game data from the Postgres DB for training 
 class DataManager:
 
-    # initialize DataManager class with file containing postgres DB access info
+    # initialize DataManager class with text file containing postgres DB access info
     def __init__(self, file):
         self.file = file
 
@@ -35,10 +36,11 @@ class DataManager:
         for data in rows:
             rawGameData = data[1]
 
-            # Skip all rows where a game was not played
+            # Skip all rows where a game was not played and the game history is not empty
             if "game" in rawGameData:
-                allGameData.append(rawGameData.copy())
-                print("Saved game " + str(data[0]) + " to dictionary and appended dictionary to list.") 
+                if rawGameData["game"]["history"]:
+                    allGameData.append(rawGameData.copy())
+                    print("Saved game " + str(data[0]) + " to dictionary and appended dictionary to list.") 
 
         print("All game data selected from database and stored in list of dictionaries.")
         conn.close()
@@ -49,15 +51,17 @@ class DataManager:
     def cleanGameData(self, data):
 
         results = []
-        
+
         for idx, item in enumerate(data):
-            print(idx)
+            print("Game " + str(idx) + ": ")
             print(item.keys())
             print(item["game"]["history"])
 
         return results
 
+# Since thie file is .gitignored, download it from Google Drive
 file = "postgres_access.txt"
+
 manager = DataManager(file)
 gameData = manager.fetchGameData()
 results = manager.cleanGameData(gameData)
