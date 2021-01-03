@@ -35,7 +35,7 @@ class DataManager:
         for data in rows:
             rawGameData = data[1]
 
-            # Skip all data where a game was not played
+            # Skip all rows where a game was not played
             if "game" in rawGameData:
                 allGameData.append(rawGameData.copy())
                 print("Saved game " + str(data[0]) + " to dictionary and appended dictionary to list.") 
@@ -47,18 +47,14 @@ class DataManager:
 
     # Accepts list of dictionaries as input and returns list of tuples (play, result) as output
     def cleanGameData(self, data):
-        #print(data[17].keys())
-        #f = open("json.txt", 'w')
-        #f.write(json.dumps(data[17]))
-
-        for idx, item in enumerate(data):
-            
-            if "game" in item:
-                #print(item["game"]["history"])
-                print(idx)
-                print(item.keys())
 
         results = []
+        
+        for idx, item in enumerate(data):
+            print(idx)
+            print(item.keys())
+            print(item["game"]["history"])
+
         return results
 
 file = "postgres_access.txt"
