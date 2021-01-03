@@ -33,15 +33,22 @@ class DataManager:
         rows = cur.fetchall()
         
         for data in rows:
-            print(data[0]) 
             rawGameData = data[1]
             allGameData.append(rawGameData.copy())
+            print("Saved game " + str(data[0]) + " to dictionary and appended dictionary to list.") 
 
-        print("Data selected")
+        print("All game data selected from database and stored in list of dictionaries.")
         conn.close()
 
         return allGameData
 
+    # Accepts list of dictionaries as input and returns list of tuples (play, result) as output
+    def cleanGameData(self, data):
+        print(data[1])
+        results = []
+        return results
+
 file = "postgres_access.txt"
 manager = DataManager(file)
-manager.fetchGameData()
+gameData = manager.fetchGameData()
+results = manager.cleanGameData(gameData)
