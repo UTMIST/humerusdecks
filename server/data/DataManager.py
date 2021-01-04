@@ -54,29 +54,38 @@ class DataManager:
 
         results = []
 
-        for idx, game in enumerate(data):
-            
-            call = ""
-            play = ""
-            result = ""
+        # Loop through every game
+        for game in data:
 
-            print("\nGame " + str(idx) + ": ")
-
-            for idy, gameRound in enumerate(game["game"]["history"]):
-                print("Round " + str(idy) + ": ")
-                #plays = gameRound["plays"]
-                #print("Plays: " + json.dumps(plays))
-                #print("Number of players: " + str(len(gameRound["plays"])))
-                print("Players: ")
-                for player in gameRound["plays"]:
-                    print(player)
-                    for play in gameRound["plays"][player]["play"]:
-
-                        print(play["text"])
+            # Loop through every round in the game
+            for gameRound in game["game"]["history"]:
                 
+                # Declare call card, to be added to tuple
+                call = gameRound["call"]["parts"]
+
                 winner = int(gameRound["winner"])
-                print("Winner: " + str(winner))
-            
+
+                # Loop through every player in the round
+                for player in gameRound["plays"]:
+
+                    # Declare play card and play result, to be added to tuple
+                    plays = []
+                    won = False
+
+                    # Set result as won if player ID matches winner ID
+                    if int(player) == winner:
+                        won = True
+
+                    # Loop through every play made by the player
+                    for play in gameRound["plays"][player]["play"]:
+                        played = play["text"]
+                        plays.append(played)
+
+
+                    result = (call, plays, won)
+                    results.append(result)
+
+        print("Successfully cleaned all game data and returned it in a list of tuples.")
         return results
 
 # Since thie file is .gitignored, download it from Google Drive
@@ -84,4 +93,5 @@ file = "postgres_access.txt"
 
 manager = DataManager(file)
 gameData = manager.fetchGameData()
-results = manager.cleanGameData(gameData)
+gameResults = manager.cleanGameData(gameData)
+#print(gameResults)
