@@ -35,6 +35,8 @@ class DataManager:
         allGameData = []
         rows = cur.fetchall()
         
+        print("Saving games... Skipping all rows where a game was not played.")
+
         for data in rows:
             rawGameData = data[1]
 
@@ -42,7 +44,7 @@ class DataManager:
             if "game" in rawGameData:
                 if rawGameData["game"]["history"]:
                     allGameData.append(rawGameData.copy())
-                    print("Saved game " + str(data[0]) + " to dictionary and appended dictionary to list.") 
+                    print("Saved game from row " + str(data[0]) + " to dictionary and appended dictionary to list.") 
 
         print("All game data selected from database and stored in list of dictionaries.")
         conn.close()
