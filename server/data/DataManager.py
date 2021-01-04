@@ -11,8 +11,10 @@ class DataManager:
     # Returns a list of dictionaries containing each game's lobby data in JSON format
     def fetchGameData(self):
 
+        # Access Postgres DB credentials
         f = open(file, "r")
 
+        # Connect to Postgres DB
         DB_NAME = (f.readline()).strip()
         DB_USER = (f.readline()).strip()
         DB_PASS = (f.readline()).strip()
@@ -47,16 +49,34 @@ class DataManager:
 
         return allGameData
 
-    # Accepts list of dictionaries as input and returns list of tuples (play, result) as output
+    # Accepts list of dictionaries as input and returns list of tuples (call, play, result) as output
     def cleanGameData(self, data):
 
         results = []
 
-        for idx, item in enumerate(data):
-            print("Game " + str(idx) + ": ")
-            print(item.keys())
-            print(item["game"]["history"])
+        for idx, game in enumerate(data):
+            
+            call = ""
+            play = ""
+            result = ""
 
+            print("\nGame " + str(idx) + ": ")
+
+            for idy, gameRound in enumerate(game["game"]["history"]):
+                print("Round " + str(idy) + ": ")
+                #plays = gameRound["plays"]
+                #print("Plays: " + json.dumps(plays))
+                #print("Number of players: " + str(len(gameRound["plays"])))
+                print("Players: ")
+                for player in gameRound["plays"]:
+                    print(player)
+                    for play in gameRound["plays"][player]["play"]:
+
+                        print(play["text"])
+                
+                winner = int(gameRound["winner"])
+                print("Winner: " + str(winner))
+            
         return results
 
 # Since thie file is .gitignored, download it from Google Drive
