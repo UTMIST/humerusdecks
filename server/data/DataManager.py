@@ -1,5 +1,6 @@
-import psycopg2
 import json
+
+import psycopg2
 
 # A class to fetch and clean all game data from the Postgres DB for training 
 class DataManager:
@@ -7,8 +8,20 @@ class DataManager:
     # initialize DataManager class with text file containing postgres DB access info
     def __init__(self, file):
         self.file = file
-
+        self.parsed_data = None
     # Returns a list of dictionaries containing each game's lobby data in JSON format
+
+    def fetch(self):
+        """
+        fills self.parsed_data
+        """
+        self.parsed_data = self.cleanGameData(self.fetchGameData())
+
+    def toJson(self, filename):
+        if self.parsed_data is None:
+            self.fetch()
+        json.dump(self.parsed_data, open(filename, 'w'))
+
     def fetchGameData(self):
 
         # Access Postgres DB credentials
@@ -53,6 +66,7 @@ class DataManager:
 
     # Accepts list of dictionaries as input and returns list of tuples (call, play, result) as output
     def cleanGameData(self, data):
+        flatten = lambda t: [item for sublist in t for item in sublist]
 
         results = []
 
@@ -83,17 +97,41 @@ class DataManager:
                         played = play["text"]
                         plays.append(played)
 
+                    # combine call and plays
+                    # result = (call, plays, won)
 
-                    result = (call, plays, won)
-                    results.append(result)
+                    call = flatten(call)
+                    while _find_first_instance_by_type(call, dict) != -1:
+                        call[_find_first_instance_by_type(call, dict)] = plays.pop(0)
+
+                    sentence = "".join(call)
+
+
+                    results.append((sentence, won))
 
         print("Successfully cleaned all game data and returned it in a list of tuples.")
         return results
 
-# Since thie file is .gitignored, download it from Google Drive
-file = "postgres_access.txt"
 
-manager = DataManager(file)
-gameData = manager.fetchGameData()
-gameResults = manager.cleanGameData(gameData)
-#print(gameResults)
+def _find_first_instance_by_type(list, t):
+    """
+    returns index of first instance of type t, -1 otherwise
+    list: list,
+    t: type to look for 
+    """
+    for ind, itm in enumerate(list):
+        if type(itm) == t:
+            return ind
+    return -1
+
+if __name__ == "__main__":
+    file = "postgres_access.txt"
+    manager = DataManager(file)
+    manager.fetch()
+    manager.toJson('asdf.json')
+    print(manager.parsed_data)
+    gameData = manager.fetchGameData()
+    gameResults = manager.cleanGameData(gameData)
+
+
+
