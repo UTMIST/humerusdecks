@@ -63,7 +63,7 @@ class DataManager:
 
         return allGameData
 
-    # Accepts list of dictionaries as input and returns list of tuples (call, play, result) as output
+    # Accepts list of dictionaries as input and returns parsed data as output
     def cleanGameData(self, data):
         flatten = lambda t: [item for sublist in t for item in sublist]
 
