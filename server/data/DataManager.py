@@ -1,5 +1,4 @@
 import json
-
 import psycopg2
 
 # A class to fetch and clean all game data from the Postgres DB for training 
