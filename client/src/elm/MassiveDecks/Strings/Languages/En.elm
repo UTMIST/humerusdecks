@@ -70,7 +70,7 @@ translate mdString =
             [ Text "Version “", Text versionNumber, Text "”" ]
 
         ShortGameDescription ->
-            [ Text "A comedy party game." ]
+            [ Text "A game that tickles your funny bone." ]
 
         WhatIsThis ->
             [ Text "What is ", Ref MassiveDecks, Text "?" ]
