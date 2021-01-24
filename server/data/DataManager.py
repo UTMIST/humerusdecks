@@ -103,13 +103,10 @@ class DataManager:
                     while _find_first_instance_by_type(call, dict) != -1 and len(plays):
                         call[_find_first_instance_by_type(call, dict)] = plays.pop(0) 
 
-                    if _find_first_instance_by_type(call, dict) == -1:
-                        sentence = "".join(call) 
-                    
-                    else:
-                        while _find_first_instance_by_type(call, dict) != -1:
-                            call[_find_first_instance_by_type(call, dict)] = "" 
-                        sentence = "".join(call)
+                    while _find_first_instance_by_type(call, dict) != -1: # if there is still styling in dict format, remove it
+                        call[_find_first_instance_by_type(call, dict)] = "" 
+
+                    sentence = "".join(call)
 
                     results.append((sentence, won))
 
