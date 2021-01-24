@@ -103,7 +103,6 @@ class DataManager:
                     while _find_first_instance_by_type(call, dict) != -1 and len(plays):
                         call[_find_first_instance_by_type(call, dict)] = plays.pop(0) 
 
-                    print(call)
                     if _find_first_instance_by_type(call, dict) == -1:
                         sentence = "".join(call) 
                     
