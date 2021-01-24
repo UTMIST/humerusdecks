@@ -100,11 +100,17 @@ class DataManager:
                     # result = (call, plays, won)
 
                     call = flatten(call)
-                    while _find_first_instance_by_type(call, dict) != -1:
-                        call[_find_first_instance_by_type(call, dict)] = plays.pop(0)
+                    while _find_first_instance_by_type(call, dict) != -1 and len(plays):
+                        call[_find_first_instance_by_type(call, dict)] = plays.pop(0) 
 
-                    sentence = "".join(call)
-
+                    print(call)
+                    if _find_first_instance_by_type(call, dict) == -1:
+                        sentence = "".join(call) 
+                    
+                    else:
+                        while _find_first_instance_by_type(call, dict) != -1:
+                            call[_find_first_instance_by_type(call, dict)] = "" 
+                        sentence = "".join(call)
 
                     results.append((sentence, won))
 
@@ -131,6 +137,5 @@ if __name__ == "__main__":
     print(manager.parsed_data)
     gameData = manager.fetchGameData()
     gameResults = manager.cleanGameData(gameData)
-
 
 

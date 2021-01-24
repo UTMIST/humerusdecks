@@ -370,6 +370,13 @@ export class Game {
         revealed: false,
         likes: [],
       });
+
+      console.log("=== TEST LOG ===");
+      console.log("Call cards: ")
+      console.log(game.round.call);
+      console.log("Player hand: ");
+      console.log(player.hand);
+
       events.push(Event.targetAll(PlaySubmitted.of(ai)));
     }
 
