@@ -1,0 +1,5 @@
+humerusdb
+humerusdecks
+UofT2020
+ls-efb01dd3082301e5fe99a590e045a554867bb266.cwusutjvyntq.us-west-2.rds.amazonaws.com
+5432

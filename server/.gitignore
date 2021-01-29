@@ -1,1 +1,3 @@
-*.json5
+.env
+config.json5
+./node_modules/*

@@ -1,3 +1,6 @@
+server/config.json5
+.env
+
 # IDE files.
 .idea/
 
@@ -11,7 +14,7 @@ node_modules/
 .env
 **config.json5
 server/config.json5
-server/data/postgres_access.txt
 deployment/postgres/config.json5
+
 
 
