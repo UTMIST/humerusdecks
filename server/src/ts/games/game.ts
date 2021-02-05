@@ -363,20 +363,94 @@ export class Game {
       const player = game.players[ai] as Player.Player;
       const plays = game.round.plays;
       const playId = Play.id();
+      /* sort player hand here
+      1) create new array of sentences made by combining call with all cards in hand 
+      -> must check slotCount; if there are multiple slots in the call card, 
+      the logic will be different; create cases for 1 slot and multiple slots*/
+
+
+      /* Create an array of all possible sentences that
+      could be played by the AI and send it through the
+      Humerus API*/
+      var potentialPlays = [];
+      var potentialPlay = [];
+      var playAndIndex = [];
+      var sentence;
+      var slotIndeces = [];
+      var flatCall = game.round.call["parts"].flat();
+      var indexOfTopScore;
+      
+      /* Iterate through every card in the player's hand and  
+      store all potential plays in an array in sentence form*/
+      for (var card in player.hand) {
+        
+        // Set next card in the player's hand as potentialPlay 
+        potentialPlay = [player.hand[card]["text"].slice(0, player.hand[card]["text"].length-1)];
+        
+        // Identify the index of every empty slot in the call card
+        for (var i=0; i<flatCall.length; i++) {
+          if (typeof flatCall[i] == "object") {
+            slotIndeces.push(i);
+          } 
+        
+        }
+        
+        // Base case: call card has 1 slot
+        if (slotCount == 1) {
+          // Replace empty slot in the call card with the potential play 
+          flatCall[slotIndeces[0]] = potentialPlay[0];
+          //console.log("Replaced slot with " + potentialPlay[0])
+          sentence = flatCall.join(" ");
+          potentialPlays.push(sentence);
+          
+        // Edge case: call card has 2 slots
+        } else {
+
+          for (var nextCard in player.hand) {
+            potentialPlay = [player.hand[card]["text"].slice(0, player.hand[card]["text"].length-1)];
+            potentialPlay.push(player.hand[nextCard]["text"].slice(0, player.hand[nextCard]["text"].length-1))
+            for(var j=0; j<slotCount; j++){
+              flatCall[slotIndeces[j]] = potentialPlay[j];
+            }
+          }
+          
+          /*
+          
+          // Iterate through every card in the player's hand
+          for (var nextCard in player.hand) {
+            potentialPlay.push(player.hand[nextCard]["text"].slice(0, player.hand[nextCard]["text"].length-1));
+            flatCall[slotIndeces[1]] = potentialPlay[0][0];
+          }*/
+        }
+      }
+      
+      console.log("Call: ")
+      console.log(flatCall)
+      console.log("Player hand: ")
+      console.log(player.hand)
+      console.log("Potential plays: ")
+      console.log(JSON.stringify(potentialPlays))
+
+      // TEMPORARY random number generator
+      indexOfTopScore = Math.floor((Math.random() * potentialPlays.length-1));
+      console.log("Index of top score is ", indexOfTopScore);
+      
+      // Move position of top scoring card to first position in player hand
+      var topScoringPlay = player.hand.splice(indexOfTopScore, slotCount);
+      player.hand.splice(0, 0, topScoringPlay[0]);
+      
+      // Play the card
+      const play = player.hand.slice(0, slotCount) as Card.Response[];
+      console.log("PLAY: ");
+      console.log(play); 
+ 
       plays.push({
         id: playId,
-        play: player.hand.slice(0, slotCount) as Card.Response[],
+        play: play,
         playedBy: ai,
         revealed: false,
         likes: [],
       });
-
-      console.log("=== TEST LOG ===");
-      console.log("Call cards: ")
-      console.log(game.round.call);
-      console.log("Player hand: ");
-      console.log(player.hand);
-
       events.push(Event.targetAll(PlaySubmitted.of(ai)));
     }
 
