@@ -37,6 +37,7 @@
     "express-winston": "^4.0.5",
     "express-ws": "^4.0.0",
     "fast-json-patch": "^3.0.0-1",
+    "form-data": "^3.0.0",
     "generic-pool": "^3.7.1",
     "hashids": "^2.2.1",
     "helmet": "^4.1.1",
@@ -45,12 +46,12 @@
     "jsonwebtoken": "^8.5.1",
     "moment": "^2.29.0",
     "pg": "^8.3.3",
+    "pg-native": "^3.0.0",
     "rfc6902": "^4.0.1",
     "source-map-support": "^0.5.19",
     "uuid": "^8.3.0",
     "winston": "^3.3.3",
-    "wu": "^2.1.0",
-    "pg-native": "^3.0.0"
+    "wu": "^2.1.0"
   },
   "devDependencies": {
     "@types/express": "^4.17.8",
