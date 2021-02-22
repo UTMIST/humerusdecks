@@ -1,4 +1,4 @@
-import wu from "wu";
+import wu, { reject } from "wu";
 import { InvalidActionError } from "../errors/validation";
 import * as Event from "../event";
 import * as GameStarted from "../events/game-event/game-started";
@@ -15,10 +15,13 @@ import * as Util from "../util";
 import * as Card from "./cards/card";
 import * as Decks from "./cards/decks";
 import * as Play from "./cards/play";
+import { Resolver } from "./cards/sources/many-decks";
 import * as Round from "./game/round";
 import * as PublicRound from "./game/round/public";
 import * as Player from "./player";
 import * as Rules from "./rules";
+import FormData from "form-data";
+import { request } from 'http';
 
 export interface Public {
   round: PublicRound.Public;
@@ -363,22 +366,17 @@ export class Game {
       const player = game.players[ai] as Player.Player;
       const plays = game.round.plays;
       const playId = Play.id();
-      /* sort player hand here
-      1) create new array of sentences made by combining call with all cards in hand 
-      -> must check slotCount; if there are multiple slots in the call card, 
-      the logic will be different; create cases for 1 slot and multiple slots*/
-
+      
 
       /* Create an array of all possible sentences that
       could be played by the AI and send it through the
       Humerus API*/
-      let potentialPlays = [];
-      let potentialPlay = [];
-      let playAndIndex = [];
-      let sentence;
-      let slotIndeces = [];
-      let flatCall = game.round.call["parts"].flat();
-      let indexOfTopScore;
+      var potentialPlays = [];
+      var potentialPlay = [];
+      var sentence;
+      var slotIndeces = [];
+      var flatCall = game.round.call["parts"].flat();
+      var indexOfTopScore;
       
       /* Iterate through every card in the player's hand and  
       store all potential plays in an array in sentence form*/
@@ -432,6 +430,33 @@ export class Game {
       console.log(JSON.stringify(potentialPlays))
 
       // TEMPORARY random number generator
+      /* connect to API */
+      var form = new FormData();
+      form.append('text', JSON.stringify(potentialPlays));
+
+      const req = request(
+        {
+          host: '77b3f9a3c977.ngrok.io',
+          method: 'POST',
+          headers: form.getHeaders(),
+        },
+        response => {
+          console.log(response);
+        }
+      )
+
+      form.pipe(req);
+
+
+      /*Axios
+        .post('https://77b3f9a3c977.ngrok.io/', form)
+        .then(res => {
+          console.log(res)
+        })
+        .catch(error => {
+          console.error(error)
+        });*/
+
       indexOfTopScore = Math.floor((Math.random() * potentialPlays.length-1));
       console.log("Index of top score is ", indexOfTopScore);
       
