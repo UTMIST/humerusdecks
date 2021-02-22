@@ -372,23 +372,23 @@ export class Game {
       /* Create an array of all possible sentences that
       could be played by the AI and send it through the
       Humerus API*/
-      var potentialPlays = [];
-      var potentialPlay = [];
-      var playAndIndex = [];
-      var sentence;
-      var slotIndeces = [];
-      var flatCall = game.round.call["parts"].flat();
-      var indexOfTopScore;
+      let potentialPlays = [];
+      let potentialPlay = [];
+      let playAndIndex = [];
+      let sentence;
+      let slotIndeces = [];
+      let flatCall = game.round.call["parts"].flat();
+      let indexOfTopScore;
       
       /* Iterate through every card in the player's hand and  
       store all potential plays in an array in sentence form*/
-      for (var card in player.hand) {
+      for (let card in player.hand) {
         
         // Set next card in the player's hand as potentialPlay 
         potentialPlay = [player.hand[card]["text"].slice(0, player.hand[card]["text"].length-1)];
         
         // Identify the index of every empty slot in the call card
-        for (var i=0; i<flatCall.length; i++) {
+        for (let i=0; i<flatCall.length; i++) {
           if (typeof flatCall[i] == "object") {
             slotIndeces.push(i);
           } 
@@ -406,10 +406,10 @@ export class Game {
         // Edge case: call card has 2 slots
         } else {
 
-          for (var nextCard in player.hand) {
+          for (let nextCard in player.hand) {
             potentialPlay = [player.hand[card]["text"].slice(0, player.hand[card]["text"].length-1)];
             potentialPlay.push(player.hand[nextCard]["text"].slice(0, player.hand[nextCard]["text"].length-1))
-            for(var j=0; j<slotCount; j++){
+            for(let j=0; j<slotCount; j++){
               flatCall[slotIndeces[j]] = potentialPlay[j];
             }
           }
