@@ -21,8 +21,7 @@ import * as Round from "./game/round";
 import * as PublicRound from "./game/round/public";
 import * as Player from "./player";
 import * as Rules from "./rules";
-import FormData from "form-data";
-import { request } from "http";
+import fetch from "node-fetch";
 
 export interface Public {
   round: PublicRound.Public;
@@ -426,6 +425,7 @@ export class Game {
         }
       }
 
+      // Console log for debugging purposes
       console.log("Call: ");
       console.log(flatCall);
       console.log("Player hand: ");
@@ -433,33 +433,24 @@ export class Game {
       console.log("Potential plays: ");
       console.log(JSON.stringify(potentialPlays));
 
-      // TEMPORARY random number generator
-      /* connect to API */
-      const form = new FormData();
-      form.append("text", JSON.stringify(potentialPlays));
+      // API call to top score calculator
+      const formBody = [];
+      const encodedKey = encodeURIComponent("text");
+      const encodedValue = encodeURIComponent(JSON.stringify(potentialPlays));
+      formBody.push(encodedKey + "=" + encodedValue);
+      const form = formBody.join("&");
 
-      const req = request(
-        {
-          host: "77b3f9a3c977.ngrok.io",
-          method: "POST",
-          headers: form.getHeaders(),
+      fetch("https://77b3f9a3c977.ngrok.io", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/x-www-form-urlencoded;charset=UTF-8",
         },
-        (response) => {
-          console.log(response);
-        }
-      );
+        body: form,
+      }).then(function (res) {
+        console.log(res);
+      });
 
-      form.pipe(req);
-
-      /*Axios
-        .post('https://77b3f9a3c977.ngrok.io/', form)
-        .then(res => {
-          console.log(res)
-        })
-        .catch(error => {
-          console.error(error)
-        });*/
-
+      // Temporary random top score generator
       const indexOfTopScore = Math.floor(
         Math.random() * potentialPlays.length - 1
       );
