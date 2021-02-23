@@ -436,9 +436,12 @@ export class Game {
       // API call to top score calculator
       const formBody = [];
       const encodedKey = encodeURIComponent("text");
-      const encodedValue = encodeURIComponent(JSON.stringify(potentialPlays));
+      //const encodedValue = encodeURIComponent(JSON.stringify(potentialPlays));
+      const encodedValue = encodeURIComponent("['hi']");
       formBody.push(encodedKey + "=" + encodedValue);
       const form = formBody.join("&");
+      console.log("Form: ");
+      console.log(form);
 
       fetch("https://77b3f9a3c977.ngrok.io", {
         method: "POST",
@@ -446,9 +449,13 @@ export class Game {
           "Content-Type": "application/x-www-form-urlencoded;charset=UTF-8",
         },
         body: form,
-      }).then(function (res) {
-        console.log(res);
-      });
+      })
+        .then((response) => {
+          console.log(response);
+        })
+        .catch((err) => {
+          console.error(err);
+        });
 
       // Temporary random top score generator
       const indexOfTopScore = Math.floor(
