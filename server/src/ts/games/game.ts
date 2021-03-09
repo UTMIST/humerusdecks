@@ -21,7 +21,9 @@ import * as Round from "./game/round";
 import * as PublicRound from "./game/round/public";
 import * as Player from "./player";
 import * as Rules from "./rules";
-import fetch from "node-fetch";
+//import fetch from "node-fetch";
+// eslint-disable-next-line prettier/prettier
+import { XMLHttpRequest } from 'xmlhttprequest-ts';
 
 export interface Public {
   round: PublicRound.Public;
@@ -368,109 +370,251 @@ export class Game {
       const plays = game.round.plays;
       const playId = Play.id();
 
-      /* Create an array of all possible sentences that
-      could be played by the AI and send it through the
-      Humerus API*/
-      const potentialPlays = [];
-      let potentialPlay = [];
-      let sentence;
-      const slotIndeces = [];
       const flatCall = game.round.call["parts"].flat();
+      let potentialPlay = [];
+      const potentialPlays: string[] = [];
+      const tempCall = flatCall;
+      let sentence;
+      let slotIndex = 0;
+      let slotIndeces = [];
 
-      /* Iterate through every card in the player's hand and  
-      store all potential plays in an array in sentence form*/
+      // Iterate through every card in the player's hand and
+      // store all potential plays in an array in sentence form
       for (const card in player.hand) {
         if (player.hand.hasOwnProperty(card)) {
-          // Set next card in the player's hand as potentialPlay
-          // eslint-disable-next-line prettier/prettier
-          potentialPlay = [player.hand[card]["text"].slice(0, player.hand[card]["text"].length-1)];
-
-          // Identify the index of every empty slot in the call card
-          for (let i = 0; i < flatCall.length; i++) {
-            if (typeof flatCall[i] == "object") {
-              slotIndeces.push(i);
-            }
-          }
-
-          // Base case: call card has 1 slot
           if (slotCount == 1) {
-            // Replace empty slot in the call card with the potential play
-            flatCall[slotIndeces[0]] = potentialPlay[0];
-            //console.log("Replaced slot with " + potentialPlay[0])
-            sentence = flatCall.join(" ");
-            potentialPlays.push(sentence);
+            // Reset potentialPlay
+            potentialPlay = [];
 
-            // Edge case: call card has 2 slots
-          } else {
-            for (const nextCard in player.hand) {
-              if (player.hand.hasOwnProperty(nextCard)) {
-                // eslint-disable-next-line prettier/prettier
-                potentialPlay = [player.hand[card]["text"].slice(0, player.hand[card]["text"].length-1)];
-                // eslint-disable-next-line prettier/prettier
-                potentialPlay.push(player.hand[nextCard]["text"].slice(0, player.hand[nextCard]["text"].length-1))
-                for (let j = 0; j < slotCount; j++) {
-                  flatCall[slotIndeces[j]] = potentialPlay[j];
-                }
+            // Push card onto potentialPlay
+            potentialPlay.push(
+              player.hand[card]["text"].slice(
+                0,
+                player.hand[card]["text"].length
+              )
+            );
+
+            // Insert card into call card slot
+            for (let i = 0; i < tempCall.length; i++) {
+              if (
+                typeof tempCall[i] == "object" &&
+                !tempCall[i].hasOwnProperty("text")
+              ) {
+                tempCall[i] = potentialPlay[0];
+                slotIndex = i;
               }
             }
 
-            /*
-            
-            // Iterate through every card in the player's hand
-            for (var nextCard in player.hand) {
-              potentialPlay.push(player.hand[nextCard]["text"].slice(0, player.hand[nextCard]["text"].length-1));
-              flatCall[slotIndeces[1]] = potentialPlay[0][0];
-            }*/
+            // Flatten tempCall into sentence and remove any quote characters
+            sentence = tempCall.join("").replace(/['"]+/g, "");
+
+            // Push sentence into potentialPlays
+            potentialPlays.push(sentence);
+
+            // Reset tempCall
+            tempCall[slotIndex] = {};
+          } else if (slotCount == 2) {
+            for (const nextCard in player.hand) {
+              if (player.hand.hasOwnProperty(nextCard) && card != nextCard) {
+                // Reset arrays
+                potentialPlay = [];
+                slotIndeces = [];
+
+                // Push cards onto potentialPlay
+                potentialPlay.push(
+                  player.hand[card]["text"].slice(
+                    0,
+                    player.hand[card]["text"].length
+                  )
+                );
+                potentialPlay.push(
+                  player.hand[nextCard]["text"].slice(
+                    0,
+                    player.hand[nextCard]["text"].length
+                  )
+                );
+
+                // Identify index of every slot in call card
+                for (let i = 0; i < tempCall.length; i++) {
+                  if (
+                    typeof tempCall[i] == "object" &&
+                    !tempCall[i].hasOwnProperty("text")
+                  ) {
+                    slotIndeces.push(i);
+                  }
+                }
+
+                // Insert cards into tempCall slots
+                for (let i = 0; i < slotIndeces.length; i++) {
+                  tempCall[slotIndeces[i]] = potentialPlay[i];
+                }
+
+                // Flatten tempCall into sentence and remove any quote characters
+                sentence = tempCall.join("").replace(/['"]+/g, "");
+
+                // Push sentence into potentialPlays
+                potentialPlays.push(sentence);
+
+                // Reset tempCall
+                for (let i = 0; i < slotIndeces.length; i++) {
+                  tempCall[slotIndeces[i]] = {};
+                }
+              }
+            }
           }
         }
       }
 
-      // Console log for debugging purposes
+      console.log("POTENTIAL PLAYS _____________________________");
+      console.log(potentialPlays);
+
+      /* Console log for debugging purposes*/
+      console.log("______________________________________");
       console.log("Call: ");
+      console.log(game.round.call["parts"]);
+      console.log("Flat Call:");
       console.log(flatCall);
       console.log("Player hand: ");
       console.log(player.hand);
       console.log("Potential plays: ");
       console.log(JSON.stringify(potentialPlays));
+      console.log("______________________________________");
 
-      // API call to top score calculator
-      const formBody = [];
-      const encodedKey = encodeURIComponent("text");
-      //const encodedValue = encodeURIComponent(JSON.stringify(potentialPlays));
-      const encodedValue = encodeURIComponent("['hi']");
-      formBody.push(encodedKey + "=" + encodedValue);
-      const form = formBody.join("&");
-      console.log("Form: ");
-      console.log(form);
+      const fetchAPI: VoidFunction = function () {
+        // API call to top score calculator
+        let responseText;
+        let responseStatus;
 
-      fetch("https://77b3f9a3c977.ngrok.io", {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/x-www-form-urlencoded;charset=UTF-8",
-        },
-        body: form,
-      })
-        .then((response) => {
-          console.log(response);
-        })
-        .catch((err) => {
-          console.error(err);
-        });
+        const url = "http://44.230.29.224";
 
-      // Temporary random top score generator
-      const indexOfTopScore = Math.floor(
-        Math.random() * potentialPlays.length - 1
-      );
-      console.log("Index of top score is ", indexOfTopScore);
+        const xhr = new XMLHttpRequest();
+        xhr.open("POST", url);
 
-      // Move position of top scoring card to first position in player hand
-      const topScoringPlay = player.hand.splice(indexOfTopScore, slotCount);
-      player.hand.splice(0, 0, topScoringPlay[0]);
+        const formBody = [];
+        const encodedKey = encodeURIComponent("text");
+        const encodedValue = encodeURIComponent(JSON.stringify(potentialPlays));
+        formBody.push(encodedKey + "=" + encodedValue);
+        const form = formBody.join("&");
 
-      // Play the card
+        xhr.setRequestHeader(
+          "Content-Type",
+          "application/x-www-form-urlencoded"
+        );
+
+        xhr.onreadystatechange = function () {
+          if (xhr.readyState === 4) {
+            responseStatus = xhr.status;
+            if (
+              responseStatus === 0 ||
+              (responseStatus >= 200 && responseStatus < 400)
+            ) {
+              responseText = xhr.responseText;
+              // this function is completed async so there must be a function here that handles what you want to be done with the data after it is ingested.
+              console.log(responseText);
+              console.log(responseStatus); // Parse the API response data
+              const stringData = JSON.stringify(responseText);
+              const parse = JSON.parse(stringData);
+              console.log(parse);
+
+              let maxValue = 0;
+
+              // Find the max score from API response data
+              for (const x in parse) {
+                if (Number(parse[x]) > Number(maxValue)) {
+                  maxValue = parse[x];
+                }
+              }
+
+              console.log("Max Score: " + Number(maxValue));
+
+              // Get the top play from the API response data
+              const topPlay = String(getKeyByValue(parse, maxValue));
+              console.log("Top Play: " + topPlay);
+
+              // Iterate through player's hand and identify the top plays
+              // and store their indeces in an array, inde cesOfTopPlays
+              const indecesOfTopPlays = [];
+              for (const card in player.hand) {
+                if (player.hand.hasOwnProperty(card)) {
+                  const potentialPlay = player.hand[card]["text"]
+                    .slice(0, player.hand[card]["text"].length)
+                    .replace(/['"]+/g, "");
+                  const indexOfTopPlay = topPlay.indexOf(potentialPlay);
+                  if (indexOfTopPlay > -1) {
+                    console.log(
+                      potentialPlay + " is located at " + indexOfTopPlay
+                    );
+                    // store the potential play
+                    indecesOfTopPlays.push([indexOfTopPlay, Number(card)]);
+                  }
+                }
+              }
+
+              // Sort top play indeces by order in which they will be played
+              indecesOfTopPlays.sort(sortByPlay);
+
+              // Copy top plays to new array
+              const topPlays = [];
+              for (let i = 0; i < indecesOfTopPlays.length; i++) {
+                topPlays.push(player.hand[indecesOfTopPlays[i][1]]);
+              }
+
+              console.log("TOP PLAYS: ");
+              console.log(topPlays);
+
+              // Delete top plays from player hand
+              indecesOfTopPlays.sort(sortByDeletion);
+              //console.log(indecesOfTopPlays);
+
+              for (let i = 0; i < indecesOfTopPlays.length; i++) {
+                player.hand.splice(indecesOfTopPlays[i][1], 1);
+              }
+
+              // Append top plays to beginning of player hand
+              player.hand.splice(0, 0, ...topPlays);
+
+              console.log("FINAL PLAYER HAND: ");
+              console.log(player.hand);
+
+              // Play random card
+              const play = player.hand.slice(0, slotCount) as Card.Response[];
+
+              plays.push({
+                id: playId,
+                play: play,
+                playedBy: ai,
+                revealed: false,
+                likes: [],
+              });
+              events.push(Event.targetAll(PlaySubmitted.of(ai)));
+
+              // Else if the API call resulted in error
+            } else {
+              console.log(responseStatus);
+
+              // Play random card
+              const play = player.hand.slice(0, slotCount) as Card.Response[];
+
+              plays.push({
+                id: playId,
+                play: play,
+                playedBy: ai,
+                revealed: false,
+                likes: [],
+              });
+              events.push(Event.targetAll(PlaySubmitted.of(ai)));
+            }
+          }
+        };
+
+        xhr.send(form);
+        return;
+      };
+
+      fetchAPI();
+
+      // Play random card
       const play = player.hand.slice(0, slotCount) as Card.Response[];
-      console.log("PLAY: ");
-      console.log(play);
 
       plays.push({
         id: playId,
@@ -494,5 +638,29 @@ export class Game {
     }
 
     return { game, events, timeouts };
+  }
+}
+
+// DEFINE FUNCTIONS
+// eslint-disable-next-line @typescript-eslint/explicit-function-return-type
+function getKeyByValue(object: { [x: string]: unknown }, value: unknown) {
+  return Object.keys(object).find((key) => object[key] === value);
+}
+
+// eslint-disable-next-line @typescript-eslint/explicit-function-return-type
+function sortByPlay(a: (string | number)[], b: (string | number)[]) {
+  if (a[0] === b[0]) {
+    return 0;
+  } else {
+    return a[0] < b[0] ? -1 : 1;
+  }
+}
+
+// eslint-disable-next-line @typescript-eslint/explicit-function-return-type
+function sortByDeletion(a: (string | number)[], b: (string | number)[]) {
+  if (a[1] === b[1]) {
+    return 0;
+  } else {
+    return a[1] > b[1] ? -1 : 1;
   }
 }
