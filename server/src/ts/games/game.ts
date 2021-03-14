@@ -520,6 +520,20 @@ export class Game {
       }
 
       // eslint-disable-next-line @typescript-eslint/explicit-function-return-type
+      async function playCard() {
+        const play = player.hand.slice(0, slotCount) as Card.Response[];
+
+        plays.push({
+          id: playId,
+          play: play,
+          playedBy: ai,
+          revealed: false,
+          likes: [],
+        });
+        events.push(Event.targetAll(PlaySubmitted.of(ai)));
+      }
+
+      // eslint-disable-next-line @typescript-eslint/explicit-function-return-type
       async function pickCard(responseJson: unknown) {
         const stringData = JSON.stringify(responseJson);
         const parse = JSON.parse(stringData);
@@ -528,7 +542,9 @@ export class Game {
         let maxValue = 0;
 
         // Find the max score from API response data
+        // eslint-disable-next-line guard-for-in
         for (const x in parse) {
+          console.log(x);
           if (Number(parse[x]) > Number(maxValue)) {
             maxValue = parse[x];
           }
@@ -596,154 +612,11 @@ export class Game {
         console.log(player.hand);
 
         // Play card
-        const play = player.hand.slice(0, slotCount) as Card.Response[];
-
-        plays.push({
-          id: playId,
-          play: play,
-          playedBy: ai,
-          revealed: false,
-          likes: [],
-        });
-        events.push(Event.targetAll(PlaySubmitted.of(ai)));
+        playCard();
       }
 
       result(JSON.stringify(formData));
-
-      //console.log("c", responseJson); // prints nothing because this is run immediately after result()
-
       /*
-      const fetchAPI: VoidFunction = function () {
-        // API call to top score calculator
-        let responseText;
-        let responseStatus;
-
-        const url = "http://44.230.29.224";
-
-        const xhr = new XMLHttpRequest();
-        xhr.open("POST", url);
-
-        const formBody = [];
-        const encodedKey = encodeURIComponent("text");
-        const encodedValue = encodeURIComponent(JSON.stringify(potentialPlays));
-        formBody.push(encodedKey + "=" + encodedValue);
-        const form = formBody.join("&");
-
-        xhr.setRequestHeader(
-          "Content-Type",
-          "application/x-www-form-urlencoded"
-        );
-
-        xhr.onreadystatechange = function () {
-          if (xhr.readyState === 4) {
-            responseStatus = xhr.status;
-            if (
-              responseStatus === 0 ||
-              (responseStatus >= 200 && responseStatus < 400)
-            ) {
-              responseText = xhr.responseText;
-              // this function is completed async so there must be a function here that handles what you want to be done with the data after it is ingested.
-              console.log(responseText);
-              console.log(responseStatus); // Parse the API response data
-              const stringData = JSON.stringify(responseText);
-              const parse = JSON.parse(stringData);
-              console.log(parse);
-
-              let maxValue = 0;
-
-              // Find the max score from API response data
-              for (const x in parse) {
-                if (Number(parse[x]) > Number(maxValue)) {
-                  maxValue = parse[x];
-                }
-              }
-
-              console.log("Max Score: " + Number(maxValue));
-
-              // Get the top play from the API response data
-              const topPlay = String(getKeyByValue(parse, maxValue));
-              console.log("Top Play: " + topPlay);
-
-              // Iterate through player's hand and identify the top plays
-              // and store their indeces in an array, indecesOfTopPlays
-              const indecesOfTopPlays = [];
-              for (const card in player.hand) {
-                if (player.hand.hasOwnProperty(card)) {
-                  const potentialPlay = player.hand[card]["text"]
-                    .slice(0, player.hand[card]["text"].length)
-                    .replace(/['"]+/g, "");
-                  const indexOfTopPlay = topPlay.indexOf(potentialPlay);
-                  if (indexOfTopPlay > -1) {
-                    console.log(
-                      potentialPlay + " is located at " + indexOfTopPlay
-                    );
-                    // store the potential play
-                    indecesOfTopPlays.push([indexOfTopPlay, Number(card)]);
-                  }
-                }
-              }
-
-              // Sort top play indeces by order in which they will be played
-              indecesOfTopPlays.sort(sortByPlay);
-
-              // Copy top plays to new array
-              const topPlays = [];
-              for (let i = 0; i < indecesOfTopPlays.length; i++) {
-                topPlays.push(player.hand[indecesOfTopPlays[i][1]]);
-              }
-
-              console.log("TOP PLAYS: ");
-              console.log(topPlays);
-
-              // Delete top plays from player hand
-              indecesOfTopPlays.sort(sortByDeletion);
-              for (let i = 0; i < indecesOfTopPlays.length; i++) {
-                player.hand.splice(indecesOfTopPlays[i][1], 1);
-              }
-
-              // Append top plays to beginning of player hand
-              player.hand.splice(0, 0, ...topPlays);
-
-              console.log("FINAL PLAYER HAND: ");
-              console.log(player.hand);
-
-              // Play card
-              const play = player.hand.slice(0, slotCount) as Card.Response[];
-
-              plays.push({
-                id: playId,
-                play: play,
-                playedBy: ai,
-                revealed: false,
-                likes: [],
-              });
-              events.push(Event.targetAll(PlaySubmitted.of(ai)));
-
-              // Else if the API call resulted in error
-            } else {
-              console.log(responseStatus);
-
-              // Play random card
-              const play = player.hand.slice(0, slotCount) as Card.Response[];
-
-              plays.push({
-                id: playId,
-                play: play,
-                playedBy: ai,
-                revealed: false,
-                likes: [],
-              });
-              events.push(Event.targetAll(PlaySubmitted.of(ai)));
-            }
-          }
-        };
-
-        xhr.send(form);
-        return;
-      };
-
-      fetchAPI();
-
       // Play random card
       const play = player.hand.slice(0, slotCount) as Card.Response[];
 
