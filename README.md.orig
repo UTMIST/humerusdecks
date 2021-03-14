@@ -3,7 +3,7 @@
 Humerus Decks is a fork of [Massive Decks](https://github.com/lattyware/massivedecks), a free, open source comedy party game based on [Cards against Humanity][cah], with an AI twist! Play with friends!
 Play against the [Humerus bot](https://github.com/UTMIST/Humerus)! Are you funnier than a computer?
 
-[cah]: https://cardsagainsthumanity.com/
+<<<<<<< HEAD
 
 
 ## Original README below 
@@ -13,6 +13,8 @@ Play against the [Humerus bot](https://github.com/UTMIST/Humerus)! Are you funni
 
 **[Play Massive Decks][hosted]**
 
+=======
+>>>>>>> d0afec3069d52050bed728c0245b919d4936bf57
 [cah]: https://cardsagainsthumanity.com/
 
 
