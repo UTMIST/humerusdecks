@@ -61,9 +61,6 @@ Contribution guide coming soon!
 
 ## Credits
 
-### Maintainers
-
-[Brian Chen](https://chenbrian.ca)
 
 ### Inspiration
 
