@@ -15,7 +15,11 @@
     "buildClient": "npm explore @massivedecks/client -- npm run build"
   },
   "dependencies": {
+    "@massivedecks/client": "file:./client",
     "@massivedecks/server": "file:./server",
-    "@massivedecks/client": "file:./client"
+    "xmlhttprequest-ts": "^1.0.1"
+  },
+  "devDependencies": {
+    "@types/form-data": "^2.5.0"
   }
 }

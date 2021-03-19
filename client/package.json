@@ -44,6 +44,7 @@
     "@types/chrome": "^0.0.124",
     "@types/chromecast-caf-receiver": "^5.0.11",
     "@types/chromecast-caf-sender": "^1.0.3",
+    "ajv": "^6.9.1",
     "ajv-errors": "^1.0.1",
     "app-manifest-loader": "^2.4.1",
     "chromecast-device-emulator": "^1.2.7",
@@ -79,7 +80,6 @@
     "typescript": "^4.0.3",
     "webpack": "^4.44.2",
     "webpack-cli": "^3.3.12",
-    "webpack-dev-server": "^3.11.0",
-    "ajv": "^6.9.1"
+    "webpack-dev-server": "^3.11.0"
   }
 }
